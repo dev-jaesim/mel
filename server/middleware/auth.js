@@ -2,20 +2,29 @@ const { userModel: User } = require("../models/userModel");
 
 let auth = (req, res, next) => {
   let token = req.cookies.mel_auth;
+  console.log(`token in auth.js: ${token}`);
+  if (token === undefined) {
+    return res.json({
+      isAuth: false,
+      isLoading: false,
+      error: "No token found",
+    });
+  } else {
+    User.findByToken(token, (err, user) => {
+      if (err) throw err;
 
-  User.findByToken(token, (err, user) => {
-    if (err) throw err;
+      if (!user)
+        return res.json({
+          isAuth: false,
+          error: "No user found",
+        });
 
-    if (!user)
-      return res.json({
-        isAuth: false,
-        error: "No token found",
-      });
-
-    req.token = token;
-    req.user = user;
-    next();
-  });
+      console.log(`user in findByToken: ${user}`);
+      req.token = token;
+      req.user = user;
+      next();
+    });
+  }
 };
 
 module.exports = { auth };
