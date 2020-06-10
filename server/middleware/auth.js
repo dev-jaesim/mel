@@ -2,7 +2,6 @@ const { userModel: User } = require("../models/userModel");
 
 let auth = (req, res, next) => {
   let token = req.cookies.mel_auth;
-  console.log(`token in auth.js: ${token}`);
   if (token === undefined) {
     return res.json({
       isAuth: false,
@@ -19,7 +18,6 @@ let auth = (req, res, next) => {
           error: "No user found",
         });
 
-      console.log(`user in findByToken: ${user}`);
       req.token = token;
       req.user = user;
       next();

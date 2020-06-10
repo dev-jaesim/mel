@@ -10,7 +10,10 @@ export default function (state = { info: { isLoading: true } }, action) {
     case REGISTER_USER:
       return { ...state, register: action.payload };
     case LOGIN_USER:
-      return { ...state, loginSucces: action.payload };
+      return {
+        info: action.payload.info,
+        loginSuccess: action.payload.loginSuccess,
+      };
     case AUTH_USER:
       return { ...state, info: action.payload };
     case LOGOUT_USER:

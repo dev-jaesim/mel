@@ -8,7 +8,6 @@ const { auth } = require("../middleware/auth");
 //=================================
 
 router.get("/auth", auth, (req, res) => {
-  console.log(`user in route: ${req.user}`);
   res.status(200).json({
     _id: req.user._id,
     isAdmin: req.user.role === 0 ? false : true,
@@ -69,10 +68,21 @@ router.post("/login", (req, res) => {
         if (err) return res.status(400).send(err);
 
         res.cookie("mel_authExp", user.tokenExp);
-        res.cookie("mel_auth", user.token).status(200).json({
-          loginSuccess: true,
-          userId: user._id,
-        });
+        res
+          .cookie("mel_auth", user.token)
+          .status(200)
+          .json({
+            info: {
+              _id: user._id,
+              isAdmin: user.role === 0 ? false : true,
+              isAuth: true,
+              email: user.email,
+              name: user.name,
+              role: user.role,
+              isLoading: false,
+            },
+            loginSuccess: true,
+          });
       });
     });
   });

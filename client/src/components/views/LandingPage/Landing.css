@@ -1,0 +1,28 @@
+.main-img {
+  width: 80%;
+  height: 20rem;
+  object-fit: cover;
+}
+
+.main-img-container {
+  text-align: center;
+}
+
+.container-padding {
+  padding: 1rem 3rem;
+}
+
+.main-slogan {
+  font-size: 3.5rem;
+  line-height: 4rem;
+  color: black;
+}
+
+.main-slogan-detail {
+  margin: 1rem 0;
+  color: black;
+}
+
+.main-slogan-btn {
+  width: 98%;
+}
