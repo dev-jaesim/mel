@@ -34,7 +34,7 @@ if (process.env.NODE_ENV === "production") {
 }
 
 // ==================== for heroku local ==================== //
-app.use(express.static("client/build"));
+// app.use(express.static("client/build"));
 
 app.use("/api/users", require("./routes/userRoute"));
 
