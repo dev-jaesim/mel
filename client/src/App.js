@@ -6,6 +6,7 @@ import RegisterPage from "./components/views/RegisterPage/RegisterPage";
 import NavPage from "./components/views/NavPage/NavPage";
 import TestPage from "./components/views/TestPage/TestPage";
 import DefaultPage from "./components/views/DefaultPage/DefaultPage";
+import FooterPage from "./components/views/FooterPage/FooterPage";
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
           <Route component={DefaultPage} />
         </Switch>
       </div>
+      <FooterPage />
     </Suspense>
   );
 }

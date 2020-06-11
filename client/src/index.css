@@ -1,3 +1,63 @@
 body {
   background-color: #fafafa !important;
 }
+
+.bgc-white {
+  background: white;
+}
+
+.text-align-center {
+  text-align: center;
+}
+
+.text-align-right {
+  text-align: right;
+}
+
+.width-full {
+  width: 100%;
+}
+
+.width-80 {
+  width: 80%;
+}
+
+.width-35 {
+  width: 35%;
+}
+
+.margin-y-2 {
+  margin: 2rem 0;
+}
+
+.font-size-1p2 {
+  font-size: 1.2rem;
+}
+
+.font-size-1p5 {
+  font-size: 1.5rem;
+}
+
+.font-size-2 {
+  font-size: 2rem;
+}
+
+.font-size-10 {
+  font-size: 10rem;
+}
+
+.font-color-black {
+  color: black;
+}
+
+.font-color-white {
+  color: white;
+}
+
+.font-color-white-transparent {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.content-center {
+  margin: 0 auto;
+}

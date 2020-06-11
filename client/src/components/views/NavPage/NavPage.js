@@ -1,21 +1,18 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { Row, Col, Input } from "antd";
-import {
-  CaretUpOutlined,
-  CaretDownOutlined,
-  LoadingOutlined,
-} from "@ant-design/icons";
+import { Row, Col } from "antd";
+import { CaretUpOutlined, CaretDownOutlined } from "@ant-design/icons";
 import "./Nav.css";
 import { useDispatch, useSelector } from "react-redux";
 import { auth, logoutUser } from "../../../_actions/user_actions";
-
-const { Search } = Input;
+import Couses from "./Sections/Courses";
+import Tests from "./Sections/Tests";
 
 function NavPage() {
   const dispatch = useDispatch();
   const userState = useSelector((state) => state.user);
   const [courseOpen, setCourseOpen] = useState(false);
+  const [testOpen, setTestOpen] = useState(false);
 
   useEffect(() => {
     dispatch(auth());
@@ -23,6 +20,10 @@ function NavPage() {
 
   const handleCourseOpen = () => {
     setCourseOpen(!courseOpen);
+  };
+
+  const handleTestOpen = () => {
+    setTestOpen(!testOpen);
   };
 
   const handleLogout = (e) => {
@@ -34,11 +35,7 @@ function NavPage() {
   };
 
   if (userState.info.isLoading) {
-    return (
-      <div style={{ textAlign: "center" }}>
-        <LoadingOutlined style={{ fontSize: "3rem", margin: "3rem" }} />
-      </div>
-    );
+    return <div />;
   } else {
     return (
       <>
@@ -46,20 +43,21 @@ function NavPage() {
           <Row align="middle">
             <Col span={4} className="text-align-center">
               <span onClick={handleCourseOpen}>
-                COURSES{" "}
+                COURSES
                 {courseOpen ? <CaretUpOutlined /> : <CaretDownOutlined />}
               </span>
             </Col>
-            <Col span={4}>
-              <Search
-                placeholder="input search text"
-                onSearch={(value) => console.log(value)}
-                style={{ width: "100%" }}
-              />
+            <Col span={4} className="text-align-center">
+              <span onClick={handleTestOpen}>
+                TESTS
+                {testOpen ? <CaretUpOutlined /> : <CaretDownOutlined />}
+              </span>
             </Col>
             <Col span={8} className="text-align-center">
               <Link to="/">
                 <span>
+                  <img src="img/logo.png" alt="logo" style={{ width: "10%" }} />{" "}
+                  &nbsp;&nbsp;
                   <strong>MRT EDU LAB</strong>
                 </span>
               </Link>
@@ -84,55 +82,12 @@ function NavPage() {
             </Col>
           </Row>
         </nav>
-        <Row
-          justify="space-between"
-          className={courseOpen ? "coursebar open" : "coursebar"}
-        >
-          <Col span={6} className="course-padding">
-            English
-            <hr style={{ color: "#333" }} />
-            <p>menu ....</p>
-            <p>menu ....</p>
-            <p>menu ....</p>
-            <p>menu ....</p>
-            <p>menu ....</p>
-            <p>menu ....</p>
-            <p>menu ....</p>
-          </Col>
-          <Col span={6} className="course-padding">
-            Math
-            <hr />
-            <p>menu ....</p>
-            <p>menu ....</p>
-            <p>menu ....</p>
-            <p>menu ....</p>
-            <p>menu ....</p>
-            <p>menu ....</p>
-            <p>menu ....</p>
-          </Col>
-          <Col span={6} className="course-padding">
-            GA
-            <hr />
-            <p>menu ....</p>
-            <p>menu ....</p>
-            <p>menu ....</p>
-            <p>menu ....</p>
-            <p>menu ....</p>
-            <p>menu ....</p>
-            <p>menu ....</p>
-          </Col>
-          <Col span={6} className="course-padding">
-            Writing
-            <hr />
-            <p>menu ....</p>
-            <p>menu ....</p>
-            <p>menu ....</p>
-            <p>menu ....</p>
-            <p>menu ....</p>
-            <p>menu ....</p>
-            <p>menu ....</p>
-          </Col>
-        </Row>
+        <div className={courseOpen ? "coursebar open" : "coursebar"}>
+          <Couses />
+        </div>
+        <div className={testOpen ? "coursebar open" : "coursebar"}>
+          <Tests />
+        </div>
       </>
     );
   }

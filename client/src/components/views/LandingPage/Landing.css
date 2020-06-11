@@ -9,11 +9,15 @@
 }
 
 .container-padding {
-  padding: 1rem 3rem;
+  padding: 3rem 3rem;
+}
+
+.testimonial-padding {
+  padding: 3rem 13rem;
 }
 
 .main-slogan {
-  font-size: 3.5rem;
+  font-size: 2.5rem;
   line-height: 4rem;
   color: black;
 }
@@ -21,8 +25,21 @@
 .main-slogan-detail {
   margin: 1rem 0;
   color: black;
+  font-size: 1.7rem;
 }
 
 .main-slogan-btn {
   width: 98%;
+}
+
+.why-works-title {
+  text-align: center;
+  width: 100%;
+}
+
+.partner-font {
+  text-align: center;
+  font-size: 3rem;
+  font-weight: bold;
+  color: rgba(0, 0, 0, 0.2);
 }
