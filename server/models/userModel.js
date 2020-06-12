@@ -6,7 +6,12 @@ const saltRounds = config.SALT_ROUNDS;
 const jwtSecret = config.JWT_SECRET;
 
 const userSchema = mongoose.Schema({
-  name: {
+  firstName: {
+    type: String,
+    maxlength: 50,
+    required: true,
+  },
+  lastName: {
     type: String,
     maxlength: 50,
     required: true,
@@ -28,9 +33,10 @@ const userSchema = mongoose.Schema({
     type: Number,
     default: 0,
   },
-  image: {
+  grade: {
     type: String,
-    default: "uploads/initial-avatar.jpg",
+    required: true,
+    maxlength: 10,
   },
   token: {
     type: String,

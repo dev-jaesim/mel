@@ -9,12 +9,14 @@ const { auth } = require("../middleware/auth");
 
 router.get("/auth", auth, (req, res) => {
   res.status(200).json({
-    _id: req.user._id,
-    isAdmin: req.user.role === 0 ? false : true,
+    _id: user._id,
+    email: user.email,
+    firstName: user.firstName,
+    lastName: user.lastName,
+    grade: user.grade,
+    role: user.role,
+    isAdmin: user.role === 0 ? false : true,
     isAuth: true,
-    email: req.user.email,
-    name: req.user.name,
-    role: req.user.role,
     isLoading: false,
   });
 });
@@ -49,6 +51,10 @@ router.post("/login", (req, res) => {
 
     if (!user) {
       return res.json({
+        info: {
+          isAuth: false,
+          isLoading: false,
+        },
         loginSuccess: false,
         message: "No matched email found!",
       });
@@ -59,6 +65,10 @@ router.post("/login", (req, res) => {
 
       if (!isMatched) {
         return res.json({
+          info: {
+            isAuth: false,
+            isLoading: false,
+          },
           loginSuccess: false,
           message: "Password is wrong!",
         });
@@ -74,11 +84,13 @@ router.post("/login", (req, res) => {
           .json({
             info: {
               _id: user._id,
+              email: user.email,
+              firstName: user.firstName,
+              lastName: user.lastName,
+              grade: user.grade,
+              role: user.role,
               isAdmin: user.role === 0 ? false : true,
               isAuth: true,
-              email: user.email,
-              name: user.name,
-              role: user.role,
               isLoading: false,
             },
             loginSuccess: true,

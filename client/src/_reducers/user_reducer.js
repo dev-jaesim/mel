@@ -13,6 +13,7 @@ export default function (state = { info: { isLoading: true } }, action) {
       return {
         info: action.payload.info,
         loginSuccess: action.payload.loginSuccess,
+        message: action.payload.message,
       };
     case AUTH_USER:
       return { ...state, info: action.payload };

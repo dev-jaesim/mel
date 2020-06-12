@@ -15,6 +15,7 @@ let auth = (req, res, next) => {
       if (!user)
         return res.json({
           isAuth: false,
+          isLoading: false,
           error: "No user found",
         });
 

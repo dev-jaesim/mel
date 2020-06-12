@@ -4,10 +4,10 @@ import {
   Input,
   Button,
   Checkbox,
-  Col,
   Typography,
-  Alert,
+  message,
   Row,
+  Col,
 } from "antd";
 import {
   EyeInvisibleOutlined,
@@ -17,9 +17,15 @@ import {
 import { useDispatch } from "react-redux";
 import { loginUser } from "../../../_actions/user_actions";
 import { Link } from "react-router-dom";
+import "./Login.css";
+
+const { Title } = Typography;
 
 function LoginPage(props) {
-  const { Title } = Typography;
+  message.config({
+    top: 100,
+  });
+
   const dispatch = useDispatch();
   const checkValueOfRememerMe = localStorage.getItem("rememberMe")
     ? true
@@ -30,17 +36,7 @@ function LoginPage(props) {
     setRememberMe(!rememberMe);
   };
 
-  const [email, setEmail] = useState(localStorage.getItem("rememberMe"));
-  const [password, setPassword] = useState("");
-  const [errorMessage, setErrorMessage] = useState("");
-
-  const handleChange = (e) => {
-    if (e.target.type === "email") {
-      setEmail(e.target.value);
-    } else {
-      setPassword(e.target.value);
-    }
-  };
+  const storedEmail = localStorage.getItem("rememberMe");
 
   const onFinish = (values) => {
     const formData = {
@@ -51,82 +47,93 @@ function LoginPage(props) {
     dispatch(loginUser(formData)).then((response) => {
       if (response.payload.loginSuccess) {
         if (rememberMe) {
-          window.localStorage.setItem("rememberMe", email);
+          window.localStorage.setItem("rememberMe", formData.email);
         } else {
           localStorage.removeItem("rememberMe");
         }
         props.history.push("/");
       } else {
-        setErrorMessage(response.payload.message);
+        message.error(response.payload.message);
       }
     });
   };
 
   return (
-    <Row
-      type="flex"
-      align="middle"
-      style={{ marginTop: "2rem", height: "100vh" }}
-    >
-      <Col className="gutter-row" lg={{ span: 10, offset: 7 }}>
-        <Title level={2}>LOGIN</Title>
-        <Form onFinish={onFinish} initialValues={{ Email: email }}>
-          <Form.Item
-            name={"Email"}
-            rules={[
-              {
-                type: "email",
-                message: "The input is not valid E-mail!",
-              },
-              {
-                required: true,
-                message: "Please input your E-mail!",
-              },
-            ]}
-          >
-            <Input
-              value={email}
-              type="email"
-              onChange={handleChange}
-              placeholder="Enter E-mail"
-            />
-          </Form.Item>
-          <Form.Item
-            name={"Password"}
-            rules={[
-              {
-                required: true,
-                message: "Please input your password!",
-              },
-            ]}
-          >
-            <Input.Password
-              value={password}
-              onChange={handleChange}
-              placeholder="Enter password"
-              iconRender={(visible) =>
-                visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />
-              }
-            />
-          </Form.Item>
-          <Button type="primary" htmlType="submit">
-            Login
-          </Button>
-          <Checkbox
-            onClick={handleRememberMe}
-            checked={rememberMe}
-            style={{ marginLeft: "1rem" }}
-          >
-            Remember me
-          </Checkbox>
-          <Form.Item style={{ textAlign: "center" }}>
-            <Link to="/register" style={{ color: "#ff4d4f" }}>
-              <SmileOutlined />
-              &nbsp;&nbsp;Don't you have an account? Sign up
-            </Link>
-          </Form.Item>
-        </Form>
-        {errorMessage && <Alert message={errorMessage} type="error" />}
+    <Row justify="center" className="margin-y-5">
+      <Col lg={10} className="login-padding bgc-blue">
+        <div className="font-color-white font-size-2">
+          My Private Ai Tutor,
+          <br />
+          Any Where Any Time.
+        </div>
+        <div className="font-color-white-transparent font-size-1p2">
+          <br />
+          Free Diagnostic Assessment, <br />
+          Right Level Tutoring,
+          <br />
+          Excellent Reporting
+        </div>
+      </Col>
+      <Col lg={10} className="login-padding bgc-white">
+        <div>
+          <Title level={2}>LOGIN</Title>
+        </div>
+        <div>
+          <Form onFinish={onFinish} initialValues={{ Email: storedEmail }}>
+            <Form.Item
+              name={"Email"}
+              rules={[
+                {
+                  type: "email",
+                  message: "The input is not valid E-mail!",
+                },
+                {
+                  required: true,
+                  message: "Please input your E-mail!",
+                },
+              ]}
+            >
+              <Input type="email" placeholder="Enter E-mail" />
+            </Form.Item>
+            <Form.Item
+              name={"Password"}
+              rules={[
+                {
+                  required: true,
+                  message: "Please input your password!",
+                },
+              ]}
+            >
+              <Input.Password
+                placeholder="Enter password"
+                iconRender={(visible) =>
+                  visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />
+                }
+              />
+            </Form.Item>
+            <Button type="primary" htmlType="submit">
+              Login
+            </Button>
+            <Checkbox
+              onClick={handleRememberMe}
+              checked={rememberMe}
+              style={{ marginLeft: "1rem" }}
+            >
+              Remember me
+            </Checkbox>
+            <Form.Item style={{ textAlign: "center" }}>
+              <Link to="/register" className="font-color-black">
+                <SmileOutlined style={{ color: "black" }} />
+                &nbsp;
+                <span className="font-color-black">
+                  Don't you have an account?
+                </span>
+                &nbsp;&nbsp;
+                <span className="font-color-red">Sign up</span>
+              </Link>
+            </Form.Item>
+          </Form>
+        </div>
       </Col>
     </Row>
   );
