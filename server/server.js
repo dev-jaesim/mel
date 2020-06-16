@@ -27,22 +27,26 @@ mongoose
 
 app.use("/uploads", express.static("uploads"));
 
+app.use("/api/users", require("./routes/userRoute"));
+
 // Serve static assets if in production
 if (process.env.NODE_ENV === "production") {
   // Set static folder
   app.use(express.static("client/build"));
-  app.get("*", (request, response) => {
-    response.sendFile(path.join(__dirname, "..client/build", "index.html"));
+
+  app.get("*", (req, res) => {
+    res.sendFile(path.resolve(__dirname, "../client", "build", "index.html"));
   });
 }
 
 // ==================== for heroku local ==================== //
 // app.use(express.static("client/build"));
+// app.get("*", (req, res) => {
+//   res.sendFile(path.resolve(__dirname, "../client", "build", "index.html"));
+// });
 
-app.use("/api/users", require("./routes/userRoute"));
-
-app.get("/", function (req, res) {
-  res.send("Server is currently running");
-});
+// app.get("/", function (req, res) {
+//   res.send("Server is currently running");
+// });
 
 app.listen(port, () => console.log(`The server is running on the ${port}`));
