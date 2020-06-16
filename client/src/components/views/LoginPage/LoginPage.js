@@ -51,7 +51,11 @@ function LoginPage(props) {
         } else {
           localStorage.removeItem("rememberMe");
         }
-        props.history.push("/");
+        if (response.payload.info.isAdmin) {
+          props.history.push("/admin");
+        } else {
+          props.history.push("/");
+        }
       } else {
         message.error(response.payload.message);
       }

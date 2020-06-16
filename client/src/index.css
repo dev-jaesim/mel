@@ -77,3 +77,15 @@ body {
 .content-center {
   margin: 0 auto;
 }
+
+.pointer-cursor {
+  cursor: pointer;
+}
+
+.position-relative {
+  position: relative;
+}
+
+.z-index-1 {
+  z-index: 1;
+}

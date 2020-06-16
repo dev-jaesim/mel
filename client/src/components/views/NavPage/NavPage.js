@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-import { Row, Col } from "antd";
+import { Link, withRouter } from "react-router-dom";
+import { Row, Col, Avatar, Drawer } from "antd";
 import { CaretUpOutlined, CaretDownOutlined } from "@ant-design/icons";
 import "./Nav.css";
 import { useDispatch, useSelector } from "react-redux";
@@ -8,11 +8,20 @@ import { auth, logoutUser } from "../../../_actions/user_actions";
 import Couses from "./Sections/Courses";
 import Tests from "./Sections/Tests";
 
-function NavPage() {
+function NavPage(props) {
   const dispatch = useDispatch();
   const userState = useSelector((state) => state.user);
   const [courseOpen, setCourseOpen] = useState(false);
   const [testOpen, setTestOpen] = useState(false);
+  const [visible, setVisible] = useState(false);
+
+  const showDrawer = () => {
+    setVisible(!visible);
+  };
+
+  const onClose = () => {
+    setVisible(false);
+  };
 
   useEffect(() => {
     dispatch(auth());
@@ -27,9 +36,10 @@ function NavPage() {
   };
 
   const handleLogout = (e) => {
-    dispatch(logoutUser()).then(async (response) => {
+    dispatch(logoutUser()).then((response) => {
       if (response.payload.success) {
-        await window.location.reload(false);
+        props.history.push("/");
+        window.location.reload(false);
       }
     });
   };
@@ -77,7 +87,34 @@ function NavPage() {
                   <span>SIGN UP</span>
                 </Link>
               ) : (
-                <span onClick={handleLogout}>LOG OUT</span>
+                <>
+                  <Avatar
+                    onClick={showDrawer}
+                    size="large"
+                    style={{
+                      color: "#f56a00",
+                      backgroundColor: "#fde3cf",
+                      cursor: "pointer",
+                      fontSize: "1.5rem",
+                    }}
+                  >
+                    {userState.info.firstName.charAt(0)}
+                  </Avatar>
+                  <Drawer
+                    title="Basic Drawer"
+                    placement="right"
+                    className="menu_drawer"
+                    closable={false}
+                    onClose={onClose}
+                    visible={visible}
+                  >
+                    <div>
+                      <span onClick={handleLogout} className="pointer-cursor">
+                        LOG OUT
+                      </span>
+                    </div>
+                  </Drawer>
+                </>
               )}
             </Col>
           </Row>
@@ -93,4 +130,4 @@ function NavPage() {
   }
 }
 
-export default NavPage;
+export default withRouter(NavPage);

@@ -4,7 +4,10 @@ import "./Footer.css";
 
 function FooterPage() {
   return (
-    <Row gutter={48} className="container-padding footer-bgc">
+    <Row
+      gutter={48}
+      className="container-padding footer-bgc position-relative z-index-1"
+    >
       <Col className="gutter-row" span={8}>
         <p className="font-color-white-transparent font-size-1p2">
           Our mission is to provide a free, world-class education to anyone,

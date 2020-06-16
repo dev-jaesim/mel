@@ -7,6 +7,7 @@ import NavPage from "./components/views/NavPage/NavPage";
 import TestPage from "./components/views/TestPage/TestPage";
 import DefaultPage from "./components/views/DefaultPage/DefaultPage";
 import FooterPage from "./components/views/FooterPage/FooterPage";
+import AdminLandingPage from "./components/views/AdminLandingPage/AdminLandingPage";
 
 function App() {
   return (
@@ -22,6 +23,8 @@ function App() {
           <Route exact path="/" component={LandingPage} />
           <Route exact path="/login" component={LoginPage} />
           <Route exact path="/register" component={RegisterPage} />
+          />
+          <Route exact path="/admin" component={AdminLandingPage} />
           />
           <Route exact path="/test" component={TestPage} />
           <Route component={DefaultPage} />
