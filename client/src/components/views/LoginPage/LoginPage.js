@@ -54,7 +54,7 @@ function LoginPage(props) {
         if (response.payload.info.isAdmin) {
           props.history.push("/admin");
         } else {
-          props.history.push("/");
+          props.history.push("/student");
         }
       } else {
         message.error(response.payload.message);

@@ -7,6 +7,7 @@ import WhySecion from "./Sections/WhySection";
 import UpComingSection from "./Sections/UpComingSection";
 import TestimonialSection from "./Sections/TestimonialSection";
 import PartnerSection from "./Sections/PartnerSection";
+import FooterPage from "../FooterPage/FooterPage";
 
 function LandingPage() {
   const userState = useSelector((state) => state.user);
@@ -19,13 +20,18 @@ function LandingPage() {
     );
   } else {
     return (
-      <div>
-        <TopSection />
-        <WhySecion />
-        <UpComingSection />
-        <TestimonialSection />
-        <PartnerSection />
-      </div>
+      <>
+        <div>
+          <TopSection />
+          <WhySecion />
+          <UpComingSection />
+          <TestimonialSection />
+          <PartnerSection />
+        </div>
+        <div>
+          <FooterPage />
+        </div>
+      </>
     );
   }
 }

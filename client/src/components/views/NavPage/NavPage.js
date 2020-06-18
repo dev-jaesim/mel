@@ -109,6 +109,11 @@ function NavPage(props) {
                     visible={visible}
                   >
                     <div>
+                      <Link to={userState.info.isAdmin ? "/admin" : "/student"}>
+                        DASH BOARD
+                      </Link>
+                    </div>
+                    <div>
                       <span onClick={handleLogout} className="pointer-cursor">
                         LOG OUT
                       </span>

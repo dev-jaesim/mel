@@ -6,8 +6,8 @@ import RegisterPage from "./components/views/RegisterPage/RegisterPage";
 import NavPage from "./components/views/NavPage/NavPage";
 import TestPage from "./components/views/TestPage/TestPage";
 import DefaultPage from "./components/views/DefaultPage/DefaultPage";
-import FooterPage from "./components/views/FooterPage/FooterPage";
 import AdminLandingPage from "./components/views/AdminLandingPage/AdminLandingPage";
+import StudentLandingPage from "./components/views/StudentLandingPage/StudentLandingPage";
 
 function App() {
   return (
@@ -26,11 +26,12 @@ function App() {
           />
           <Route exact path="/admin" component={AdminLandingPage} />
           />
+          <Route exact path="/student" component={StudentLandingPage} />
+          />
           <Route exact path="/test" component={TestPage} />
           <Route component={DefaultPage} />
         </Switch>
       </div>
-      <FooterPage />
     </Suspense>
   );
 }
