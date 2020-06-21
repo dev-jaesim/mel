@@ -7,6 +7,24 @@ const { auth } = require("../middleware/auth");
 //             User
 //=================================
 
+router.get("/", async (req, res) => {
+  let keywords = {};
+  for (k in req.query) {
+    if (
+      req.query[k] !== "null" &&
+      req.query[k] !== "undefined" &&
+      req.query[k] !== ""
+    ) {
+      keywords[k] = req.query[k];
+    }
+  }
+
+  await User.find(keywords, (err, users) => {
+    if (err) return res.status(400).send(err);
+    return res.status(200).send(users);
+  });
+});
+
 router.get("/auth", auth, (req, res) => {
   res.status(200).json({
     _id: req.user._id,
