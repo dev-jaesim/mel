@@ -7,7 +7,23 @@ const { auth } = require("../middleware/auth");
 //             User
 //=================================
 
-router.get("/", async (req, res) => {
+router.put("/update", (req, res) => {
+  User.findOneAndUpdate({ email: req.body.email }, req.body, {
+    new: true,
+  }).exec((err, user) => {
+    if (err) return res.json({ message: err });
+    return res.status(200).json({ user });
+  });
+});
+
+router.delete("/delete", (req, res) => {
+  User.findOneAndDelete(req.body).exec((err) => {
+    if (err) return res.json({ message: err });
+    return res.status(200).json({ message: "Success" });
+  });
+});
+
+router.get("/", (req, res) => {
   let keywords = {};
   for (k in req.query) {
     if (
@@ -19,7 +35,7 @@ router.get("/", async (req, res) => {
     }
   }
 
-  await User.find(keywords, (err, users) => {
+  User.find(keywords, (err, users) => {
     if (err) return res.status(400).send(err);
     return res.status(200).send(users);
   });

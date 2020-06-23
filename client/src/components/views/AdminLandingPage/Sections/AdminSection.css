@@ -1,3 +1,8 @@
 .users-section-search {
   margin: 2rem 7rem;
 }
+
+.open-user-modal {
+  color: #1890ff;
+  cursor: pointer;
+}
