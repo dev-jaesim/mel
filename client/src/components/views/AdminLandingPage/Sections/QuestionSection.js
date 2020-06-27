@@ -140,19 +140,21 @@ function QuestionSection() {
 
   const updateQuestion = (values) => {
     const variables = { ...values, _id: individual._id };
-    axios.put(`${QUESTION_SERVER}/update`, variables);
+    axios
+      .put(`${QUESTION_SERVER}/update`, variables)
+      .then(loadQuestions(keywords));
     setIndividual(null);
     setSubject(null);
-    loadQuestions(keywords);
     setIndividualQuestionModalVisible(false);
   };
 
   function popConfirm(e) {
-    axios.delete(`${QUESTION_SERVER}/delete`, {
-      data: { _id: individual._id },
-    });
+    axios
+      .delete(`${QUESTION_SERVER}/delete`, {
+        data: { _id: individual._id },
+      })
+      .then(loadQuestions(keywords));
     setIndividual(null);
-    loadQuestions(keywords);
     setSubject(null);
     setIndividualQuestionModalVisible(false);
     message.success("The user has been successfully removed");
@@ -163,9 +165,8 @@ function QuestionSection() {
   }
 
   const addQuestion = (values) => {
-    axios.post(`${QUESTION_SERVER}/add`, values);
+    axios.post(`${QUESTION_SERVER}/add`, values).then(loadQuestions(keywords));
     setSubject(null);
-    loadQuestions(keywords);
     setQuestionModalVisible(false);
   };
 
