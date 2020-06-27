@@ -28,6 +28,7 @@ mongoose
 app.use("/uploads", express.static("uploads"));
 
 app.use("/api/users", require("./routes/userRoute"));
+app.use("/api/questions", require("./routes/questionRoute"));
 
 // Serve static assets if in production
 if (process.env.NODE_ENV === "production") {

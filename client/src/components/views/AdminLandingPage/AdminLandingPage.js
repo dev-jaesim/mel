@@ -14,11 +14,13 @@ import {
   DollarCircleOutlined,
   ExceptionOutlined,
   MailOutlined,
+  FileAddOutlined,
 } from "@ant-design/icons";
 import { useSelector } from "react-redux";
 import Dashboard from "./Sections/Dashboard";
 import TransactionReport from "./Sections/TransactionReport";
 import UsersSection from "./Sections/UsersSection";
+import QuestionSection from "./Sections/QuestionSection";
 
 const { Content, Sider, Footer } = Layout;
 
@@ -41,12 +43,17 @@ function AdminLandingPage(props) {
   };
 
   const renderContent = (selectedMenu) => {
-    if (selectedMenu === "1") {
-      return <Dashboard />;
-    } else if (selectedMenu === "2") {
-      return <TransactionReport />;
-    } else if (selectedMenu === "4") {
-      return <UsersSection />;
+    switch (selectedMenu) {
+      case "1":
+        return <Dashboard />;
+      case "2":
+        return <TransactionReport />;
+      case "4":
+        return <UsersSection />;
+      case "5":
+        return <QuestionSection />;
+      default:
+        return <Dashboard />;
     }
   };
 
@@ -93,10 +100,10 @@ function AdminLandingPage(props) {
             </Menu.Item>
             <Menu.Item
               key="5"
-              icon={<UserOutlined />}
+              icon={<FileAddOutlined />}
               onClick={handleSelectedMenu}
             >
-              Packages
+              Questions
             </Menu.Item>
             <Menu.Item
               key="6"
