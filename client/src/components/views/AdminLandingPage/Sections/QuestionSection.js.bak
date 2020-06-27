@@ -38,30 +38,32 @@ function QuestionSection() {
     mark: null,
   });
 
-  const loadQuestions = async (keywords) => {
-    const { data } = await axios.get(
-      `${QUESTION_SERVER}?subject=${keywords.subject}&category=${keywords.category}&grade=${keywords.grade}&difficulty=${keywords.difficulty}&mark=${keywords.mark}`
-    );
-
-    await setQuestions(
-      data.map((v) => {
-        return {
-          key: v._id,
-          subject: v.subject,
-          category: v.category,
-          grade: v.grade,
-          difficulty: v.difficulty,
-          question: v.question,
-          optionOne: v.optionOne,
-          optionTwo: v.optionTwo,
-          optionThree: v.optionThree,
-          optionFour: v.optionFour,
-          answer: v.answer,
-          mark: v.mark,
-          explanation: v.explanation,
-        };
-      })
-    );
+  const loadQuestions = (keywords) => {
+    axios
+      .get(
+        `${QUESTION_SERVER}?subject=${keywords.subject}&category=${keywords.category}&grade=${keywords.grade}&difficulty=${keywords.difficulty}&mark=${keywords.mark}`
+      )
+      .then(async (response) => {
+        await setQuestions(
+          response.data.map((v) => {
+            return {
+              key: v._id,
+              subject: v.subject,
+              category: v.category,
+              grade: v.grade,
+              difficulty: v.difficulty,
+              question: v.question,
+              optionOne: v.optionOne,
+              optionTwo: v.optionTwo,
+              optionThree: v.optionThree,
+              optionFour: v.optionFour,
+              answer: v.answer,
+              mark: v.mark,
+              explanation: v.explanation,
+            };
+          })
+        );
+      });
   };
 
   useEffect(() => {
@@ -136,35 +138,35 @@ function QuestionSection() {
     setIndividualQuestionModalVisible(false);
   };
 
-  const updateQuestion = async (values) => {
+  const updateQuestion = (values) => {
     const variables = { ...values, _id: individual._id };
-    await axios.put(`${QUESTION_SERVER}/update`, variables);
+    axios.put(`${QUESTION_SERVER}/update`, variables);
 
-    await loadQuestions(keywords);
+    loadQuestions(keywords);
     setIndividual(null);
     setSubject(null);
     setIndividualQuestionModalVisible(false);
   };
 
-  const popConfirm = async (e) => {
-    await axios.delete(`${QUESTION_SERVER}/delete`, {
+  function popConfirm(e) {
+    axios.delete(`${QUESTION_SERVER}/delete`, {
       data: { _id: individual._id },
     });
 
-    await loadQuestions(keywords);
+    loadQuestions(keywords);
     setIndividual(null);
     setSubject(null);
     setIndividualQuestionModalVisible(false);
     message.success("The user has been successfully removed");
-  };
+  }
 
   function popCancel(e) {
     message.error("Removing the user has been canceled");
   }
 
-  const addQuestion = async (values) => {
-    await axios.post(`${QUESTION_SERVER}/add`, values);
-    await loadQuestions(keywords);
+  const addQuestion = (values) => {
+    axios.post(`${QUESTION_SERVER}/add`, values);
+    loadQuestions(keywords);
     setSubject(null);
     setQuestionModalVisible(false);
   };
