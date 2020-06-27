@@ -38,8 +38,8 @@ function QuestionSection() {
     mark: null,
   });
 
-  const loadQuestions = (keywords) => {
-    axios
+  const loadQuestions = async (keywords) => {
+    await axios
       .get(
         `${QUESTION_SERVER}?subject=${keywords.subject}&category=${keywords.category}&grade=${keywords.grade}&difficulty=${keywords.difficulty}&mark=${keywords.mark}`
       )
