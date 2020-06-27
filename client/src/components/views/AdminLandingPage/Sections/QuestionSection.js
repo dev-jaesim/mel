@@ -38,13 +38,13 @@ function QuestionSection() {
     mark: null,
   });
 
-  const loadQuestions = async (keywords) => {
-    await axios
+  const loadQuestions = (keywords) => {
+    axios
       .get(
         `${QUESTION_SERVER}?subject=${keywords.subject}&category=${keywords.category}&grade=${keywords.grade}&difficulty=${keywords.difficulty}&mark=${keywords.mark}`
       )
-      .then((response) => {
-        setQuestions(
+      .then(async (response) => {
+        await setQuestions(
           response.data.map((v) => {
             return {
               key: v._id,
@@ -140,20 +140,20 @@ function QuestionSection() {
 
   const updateQuestion = (values) => {
     const variables = { ...values, _id: individual._id };
-    axios
-      .put(`${QUESTION_SERVER}/update`, variables)
-      .then(loadQuestions(keywords));
+    axios.put(`${QUESTION_SERVER}/update`, variables);
+
+    loadQuestions(keywords);
     setIndividual(null);
     setSubject(null);
     setIndividualQuestionModalVisible(false);
   };
 
   function popConfirm(e) {
-    axios
-      .delete(`${QUESTION_SERVER}/delete`, {
-        data: { _id: individual._id },
-      })
-      .then(loadQuestions(keywords));
+    axios.delete(`${QUESTION_SERVER}/delete`, {
+      data: { _id: individual._id },
+    });
+
+    loadQuestions(keywords);
     setIndividual(null);
     setSubject(null);
     setIndividualQuestionModalVisible(false);
@@ -165,7 +165,8 @@ function QuestionSection() {
   }
 
   const addQuestion = (values) => {
-    axios.post(`${QUESTION_SERVER}/add`, values).then(loadQuestions(keywords));
+    axios.post(`${QUESTION_SERVER}/add`, values);
+    loadQuestions(keywords);
     setSubject(null);
     setQuestionModalVisible(false);
   };
