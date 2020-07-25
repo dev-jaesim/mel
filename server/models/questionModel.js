@@ -3,6 +3,11 @@ const Schema = mongoose.Schema;
 
 const questionSchema = mongoose.Schema(
   {
+    testType: {
+      type: String,
+      maxlength: 50,
+      required: true,
+    },
     subject: {
       type: String,
       maxlength: 50,
@@ -20,7 +25,19 @@ const questionSchema = mongoose.Schema(
       type: Number,
       required: true,
     },
+    previousQuestion: {
+      type: String,
+      required: true,
+    },
+    questionExternalSource: {
+      type: String,
+      required: true,
+    },
     question: {
+      type: String,
+      required: true,
+    },
+    optionExternalSource: {
       type: String,
       required: true,
     },

@@ -173,6 +173,16 @@ function QuestionSection() {
     setSubject(value);
   };
 
+  const showTestType = (kind) => {
+    return (
+      <Select placeholder="Test Type">
+        {kind === "search" && <Option value={null}>-----</Option>}
+        <Option value="naplan">NAPLAN</Option>
+        <Option value="oc">OC</Option>
+      </Select>
+    );
+  };
+
   const showSubject = (kind) => {
     return (
       <Select placeholder="Select Subject" onChange={selectCategory}>
@@ -264,6 +274,16 @@ function QuestionSection() {
     );
   };
 
+  const showPreviousQuestion = (kind) => {
+    return (
+      <Select placeholder="Is it a previous question">
+        {kind === "search" && <Option value={null}>-----</Option>}
+        <Option value="yes">Yes</Option>
+        <Option value="no">No</Option>
+      </Select>
+    );
+  };
+
   const showAnswer = () => {
     return (
       <Select placeholder="Select Answer">
@@ -343,6 +363,17 @@ function QuestionSection() {
       >
         <Form onFinish={addQuestion}>
           <Form.Item
+            name="testType"
+            rules={[
+              {
+                required: true,
+                message: "This field is required!",
+              },
+            ]}
+          >
+            {showTestType("add")}
+          </Form.Item>
+          <Form.Item
             name="subject"
             rules={[
               {
@@ -387,6 +418,31 @@ function QuestionSection() {
             {showDifficulty("add")}
           </Form.Item>
           <Form.Item
+            name="previousQuestion"
+            rules={[
+              {
+                required: true,
+                message: "This field is required!",
+              },
+            ]}
+          >
+            {showPreviousQuestion("add")}
+          </Form.Item>
+          <Form.Item
+            name="questionExternalSource"
+            rules={[
+              {
+                required: true,
+                message: "This field is required!",
+              },
+            ]}
+          >
+            <Select placeholder="Question External Source">
+              <Option value="yes">YES</Option>
+              <Option value="no">NO</Option>
+            </Select>
+          </Form.Item>
+          <Form.Item
             name="question"
             rules={[
               {
@@ -396,6 +452,20 @@ function QuestionSection() {
             ]}
           >
             <TextArea rows={4} placeholder="Enter Question" />
+          </Form.Item>
+          <Form.Item
+            name="optionExternalSource"
+            rules={[
+              {
+                required: true,
+                message: "This field is required!",
+              },
+            ]}
+          >
+            <Select placeholder="Option External Source">
+              <Option value="yes">YES</Option>
+              <Option value="no">NO</Option>
+            </Select>
           </Form.Item>
           <Form.Item
             name="optionOne"
